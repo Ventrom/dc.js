@@ -181,7 +181,8 @@ dc.barChart = function (parent, chartGroup) {
                 .select('title').text(dc.pluck('data', _chart.title(d.name)));
         } else if (_renderType === 'group') {
             var groups = _chart.stack().map(function (d) { return d.name;});
-            var groupRange = d3.scale.ordinal().domain(groups).rangePoints([0, _barWidth - _barWidth / 2]);
+            var gwidth = _barWidth / _chart.stack().length;
+            var groupRange = d3.scale.ordinal().domain(groups).rangePoints([0, _barWidth - gwidth]);
             dc.transition(bars, _chart.transitionDuration())
                 .attr('x', function (d, i) {
                     var x = _chart.x()(d.x) + groupRange(d.layer);
